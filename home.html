@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Form with Phone Validation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .quiz-container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        .error { color: red; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Simple Quiz</h2>
+        <form id="quizForm">
+            <label>Phone Number:</label><br>
+            <input type="tel" id="phone" placeholder="Enter 10-digit number" required>
+            <span class="error" id="phoneError"></span>
+            <br><br>
+
+            <label>1. What is 2 + 2?</label><br>
+            <input type="number" id="q1" required>
+            <span class="error" id="q1Error"></span>
+            <br><br>
+
+            <label>2. Capital of France?</label><br>
+            <input type="text" id="q2" required>
+            <span class="error" id="q2Error"></span>
+            <br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.getElementById("quizForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let score = 0;
+            
+            let phone = document.getElementById("phone").value;
+            let q1 = document.getElementById("q1").value;
+            let q2 = document.getElementById("q2").value.trim().toLowerCase();
+            
+            let phoneError = document.getElementById("phoneError");
+            let q1Error = document.getElementById("q1Error");
+            let q2Error = document.getElementById("q2Error");
+            phoneError.textContent = "";
+            q1Error.textContent = "";
+            q2Error.textContent = "";
+            
+            let phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                phoneError.textContent = "Please enter a valid 10-digit phone number.";
+                return;
+            }
+            
+            if (q1 == "4") {
+                score++;
+            } else {
+                q1Error.textContent = "Incorrect answer";
+            }
+            
+            if (q2 === "paris") {
+                score++;
+            } else {
+                q2Error.textContent = "Incorrect answer";
+            }
+            
+            document.getElementById("result").textContent = "Your score: " + score + "/2";
+        });
+    </script>
+</body>
+</html>
