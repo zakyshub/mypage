@@ -3,73 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Form with Phone Validation</title>
+    <title>Beautiful Quiz App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .quiz-container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-        .error { color: red; font-size: 12px; }
+        body { background-color: #f3f4f6; }
+        .hidden { display: none; }
     </style>
 </head>
-<body>
-    <div class="quiz-container">
-        <h2>Simple Quiz</h2>
-        <form id="quizForm">
-            <label>Phone Number:</label><br>
-            <input type="tel" id="phone" placeholder="Enter 10-digit number" required>
-            <span class="error" id="phoneError"></span>
-            <br><br>
-
-            <label>1. What is 2 + 2?</label><br>
-            <input type="number" id="q1" required>
-            <span class="error" id="q1Error"></span>
-            <br><br>
-
-            <label>2. Capital of France?</label><br>
-            <input type="text" id="q2" required>
-            <span class="error" id="q2Error"></span>
-            <br><br>
-
-            <button type="submit">Submit</button>
-        </form>
-        <p id="result"></p>
+<body class="flex flex-col items-center justify-center min-h-screen text-gray-800">
+    
+    <div id="intro" class="text-center">
+        <h1 class="text-4xl font-bold">Welcome to the Ultimate Quiz</h1>
+        <p class="text-lg mt-2">Test your knowledge and challenge yourself!</p>
+        <button onclick="showForm()" class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600">Start Quiz</button>
     </div>
-
+    
+    <div id="registration" class="hidden text-center">
+        <h2 class="text-3xl font-bold">Enter Your Details</h2>
+        <input id="name" type="text" placeholder="Your Name" class="mt-2 px-4 py-2 border rounded w-64" required>
+        <input id="phone" type="tel" placeholder="Phone Number" class="mt-2 px-4 py-2 border rounded w-64" required>
+        <button onclick="startQuiz()" class="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600">Proceed</button>
+    </div>
+    
+    <div id="quiz" class="hidden text-center">
+        <h2 class="text-3xl font-bold">Question 1</h2>
+        <p class="mt-2">What is the capital of France?</p>
+        <button class="mt-2 px-4 py-2 bg-gray-300 rounded">A) London</button>
+        <button class="mt-2 px-4 py-2 bg-gray-300 rounded">B) Paris</button>
+        <button class="mt-2 px-4 py-2 bg-gray-300 rounded">C) Berlin</button>
+    </div>
+    
     <script>
-        document.getElementById("quizForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let score = 0;
-            
-            let phone = document.getElementById("phone").value;
-            let q1 = document.getElementById("q1").value;
-            let q2 = document.getElementById("q2").value.trim().toLowerCase();
-            
-            let phoneError = document.getElementById("phoneError");
-            let q1Error = document.getElementById("q1Error");
-            let q2Error = document.getElementById("q2Error");
-            phoneError.textContent = "";
-            q1Error.textContent = "";
-            q2Error.textContent = "";
-            
-            let phoneRegex = /^\d{10}$/;
-            if (!phoneRegex.test(phone)) {
-                phoneError.textContent = "Please enter a valid 10-digit phone number.";
-                return;
-            }
-            
-            if (q1 == "4") {
-                score++;
-            } else {
-                q1Error.textContent = "Incorrect answer";
-            }
-            
-            if (q2 === "paris") {
-                score++;
-            } else {
-                q2Error.textContent = "Incorrect answer";
-            }
-            
-            document.getElementById("result").textContent = "Your score: " + score + "/2";
-        });
+        function showForm() {
+            document.getElementById("intro").classList.add("hidden");
+            document.getElementById("registration").classList.remove("hidden");
+        }
+        function startQuiz() {
+            document.getElementById("registration").classList.add("hidden");
+            document.getElementById("quiz").classList.remove("hidden");
+        }
     </script>
 </body>
 </html>
